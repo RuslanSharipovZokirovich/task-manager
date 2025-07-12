@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Task</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<div class="edit-form-wrapper">
+    <h1>✏️ Edit Task</h1>
+
+    <form th:action="@{'/tasks/update-task/' + ${task.id}}" method="post">
+
+        <input type="hidden" name="id" th:value="${task.id}">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:value="${task.name}" required>
+
+        <label for="descriptions">Description:</label>
+        <textarea id="descriptions" name="descriptions" required
+                  th:text="${task.descriptions}"></textarea>
+
+        <label for="createdAt">Created At:</label>
+        <input type="datetime-local" id="createdAt" name="createdAt"
+               th:value="${#temporals.format(task.createdAt, 'yyyy-MM-dd''T''HH:mm')}">
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="false" th:selected="${!task.status}">🕒 In Progress</option>
+            <option value="true" th:selected="${task.status}">✅ Done</option>
+        </select>
+
+        <input type="submit" value="💾 Save">
+    </form>
+</div>
+</body>
+</html>

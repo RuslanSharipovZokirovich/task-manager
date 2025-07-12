@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:each="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task Manager</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+<h1>My Tasks</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created</th>
+        <th>Status</th>
+        <th colspan="2">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.name}">Task Name</td>
+        <td th:text="${task.descriptions}">Task Description</td>
+        <td th:text="${#temporals.format(task.createdAt, 'dd.MM.yyyy HH:mm')}">01.01.2025</td>
+        <td>
+            <form th:action="@{/tasks/update-status/{id}(id=${task.id})}" method="post">
+                <select name="status" onchange="this.form.submit()">
+                    <option value="false" th:selected="${!task.status}">🕒 In Progress</option>
+                    <option value="true" th:selected="${task.status}">✅ Done</option>
+                </select>
+            </form>
+        </td>
+        <td class="actions">
+            <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post">
+                <button title="Delete">🗑️</button>
+            </form>
+            <a th:href="@{'/update-task/' + ${task.id}}" title="Edit">✏️</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div style="text-align: center;">
+    <a href="/create" class="button">Create Task</a>
+</div>
+</body>
+</html>

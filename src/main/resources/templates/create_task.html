@@ -1,0 +1,31 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create</title>
+    <link rel="stylesheet" th:href="@{/css/main.css/}">
+</head>
+<body>
+<h1 class="form-title">Create Task</h1>
+
+<div class="form-wrapper">
+    <form action="/create-task" method="post">
+        <label>Task Name:</label>
+        <input type="text" name="name" placeholder="Enter task name" required>
+
+        <label>Task Description:</label>
+        <textarea name="descriptions" placeholder="Enter description..." required></textarea>
+
+        <label>Status:</label>
+        <select name="status" required>
+            <option value="false">🕒 In Progress</option>
+            <option value="true">✅ Done</option>
+        </select>
+
+        <input type="submit" value="Create">
+    </form>
+</div>
+
+</body>
+</html>
